@@ -193,7 +193,7 @@
     }
 
     /* SKILLS LOOP */
-    const skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub"];
+    const skills = ["HTML", "CSS", "JavaScript", "Figma", "GitHub"];
     const skillsList = document.getElementById("skillsList");
 
     skills.forEach(skill => {
@@ -214,7 +214,7 @@
     /* ADD DYNAMIC NOTIFICATION AFTER 2 SECONDS */
     setTimeout(() => {
         const note = document.createElement("div");
-        note.textContent = "✨ New update: Check out my newest project below!";
+        note.textContent = "NEW UPDATE: Check out my newest project below!";
         note.style.background = "#ffd54f";
         note.style.padding = "12px";
         note.style.textAlign = "center";
@@ -224,7 +224,7 @@
 
     /* ADD A NEW DYNAMIC PARAGRAPH TO PROJECTS */
     const newProject = document.createElement("p");
-    newProject.innerHTML = "<strong>🔧 Recent Project:</strong> I’m currently building a responsive UI prototype!";
+    newProject.innerHTML = "<strong>🔧 Recent Project:</strong> I’m currently building a UI prototype!";
     document.querySelector("#projects").appendChild(newProject);
 
     /* DARK MODE */
