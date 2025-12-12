@@ -119,7 +119,7 @@
         </p>
 
         <h3>My Skills</h3>
-        <ul id="skillsList"></ul> <!-- loop will inject skill items here -->
+        <ul id="skillsList"></ul>
     </section>
 
 <!-- FEATURED CONTENT SECTION -->
@@ -166,6 +166,8 @@
         <textarea placeholder="Message" rows="5" required></textarea>
         <button id="submitBtn" type="submit">Submit</button>
     </form>
+
+    <p id="formStatus" style="font-weight:bold; margin-top:10px;"></p>
 </section>
 
 <script>
@@ -191,7 +193,7 @@
     }
 
     /* SKILLS LOOP */
-    const skills = ["HTML", "CSS", "JavaScript", "Figma", "GitHub"];
+    const skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub"];
     const skillsList = document.getElementById("skillsList");
 
     skills.forEach(skill => {
@@ -200,18 +202,48 @@
         skillsList.appendChild(li);
     });
 
+    /* MODIFY EXISTING ELEMENTS */
+    const aboutHeader = document.querySelector("#about h2");
+    aboutHeader.textContent = "About Me (Updated)";
+
+    const projectSection = document.getElementById("projects");
+    projectSection.style.border = "3px solid #888";
+    projectSection.style.borderRadius = "10px";
+    projectSection.style.padding = "10px";
+
+    /* ADD DYNAMIC NOTIFICATION AFTER 2 SECONDS */
+    setTimeout(() => {
+        const note = document.createElement("div");
+        note.textContent = "✨ New update: Check out my newest project below!";
+        note.style.background = "#ffd54f";
+        note.style.padding = "12px";
+        note.style.textAlign = "center";
+        note.style.fontWeight = "bold";
+        document.body.prepend(note);
+    }, 2000);
+
+    /* ADD A NEW DYNAMIC PARAGRAPH TO PROJECTS */
+    const newProject = document.createElement("p");
+    newProject.innerHTML = "<strong>🔧 Recent Project:</strong> I’m currently building a responsive UI prototype!";
+    document.querySelector("#projects").appendChild(newProject);
+
     /* DARK MODE */
     document.getElementById("darkModeToggle").addEventListener("change", function () {
         document.body.classList.toggle("dark-mode");
     });
 
-    /* FORM SUBMIT INTERACTIVITY */
+    /* FORM SUBMISSION WITH LOADING + DELAYED CONFIRMATION */
     document.getElementById("contactForm").addEventListener("submit", function(event){
         event.preventDefault();
 
-        let user = document.getElementById("nameInput").value;
+        const status = document.getElementById("formStatus");
+        status.style.color = "blue";
+        status.textContent = "Sending message...";
 
-        alert("Thank you, " + user + ", your message has been sent!");
+        setTimeout(() => {
+            status.style.color = "green";
+            status.textContent = "Message sent successfully!";
+        }, 2500);
     });
 </script>
 
