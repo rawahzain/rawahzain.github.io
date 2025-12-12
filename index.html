@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Portfolio</title>
+
 <!--styling-->
     <style>
         body {
@@ -11,6 +12,21 @@
             margin: 0;
             padding: 0;
             background: #f4f4f4;
+            color: black;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* DARK MODE */
+        .dark-mode {
+            background: #121212;
+            color: white;
+        }
+        .dark-mode section {
+            background: #1e1e1e;
+            color: white;
+        }
+        .dark-mode nav, .dark-mode header {
+            background: #000;
         }
 
         header {
@@ -63,11 +79,27 @@
             border-radius: 6px;
             cursor: pointer;
         }
+
+        /* FEATURED CONTENT STYLING */
+        .feature-box {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid #555;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
-    
-<!--html portion-->
+
 <body>
+
+    <!-- DARK MODE TOGGLE -->
+    <label style="position:absolute; top:10px; right:10px; color:white;">
+        <input type="checkbox" id="darkModeToggle"> Dark Mode
+    </label>
+
     <header>
         <h1 id="welcomeMessage">Welcome!</h1>
     </header>
@@ -77,50 +109,111 @@
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
     </nav>
+
 <!--about portion-->
     <section id="about">
         <h2>About Me</h2>
         <p>
-            Hell, my name is Rawah! I am an aspiring interface designer, currently stuying software development.
+            Hello, my name is Rawah! I am an aspiring interface designer, currently studying software development.
             I hope to grow my skills in user experience and interface design.
         </p>
-    </section>
-<!--projects portion-->
-    <section id="projects">
-        <h2>My Projects</h2>
 
+        <h3>My Skills</h3>
+        <ul id="skillsList"></ul> <!-- loop will inject skill items here -->
+    </section>
+
+<!-- FEATURED CONTENT SECTION -->
+<section id="featured">
+    <h2>Featured Content</h2>
+
+    <div id="universityResources" class="feature-box">
+        <h3>University Resources</h3>
+        <a href="https://www.ecpi.edu" target="_blank">ECPI Program Home Page</a>
+    </div>
+
+    <div id="personalResources" class="feature-box">
+        <h3>Personal Projects</h3>
         <a href="https://github.com/rawahzain/tickit" target="_blank">
-            <img src="https://media.istockphoto.com/id/874723624/vector/checklist-on-clip-board-icon-flat-graphic-design.jpg?s=612x612&w=0&k=20&c=tzQwMPU3-aAjkljDPd81SOm3U3ZPOWadA5W1WyWjys0=" alt="Project 1: To-do List App">
+            <img src="https://media.istockphoto.com/id/874723624/vector/checklist-on-clip-board-icon-flat-graphic-design.jpg?s=612x612&w=0&k=20&c=tzQwMPU3-aAjkljDPd81SOm3U3ZPOWadA5W1WyWjys0=">
         </a>
+    </div>
+</section>
 
-        <a href="https://github.com/rawahzain/project2" target="_blank">
-            <img src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?semt=ais_hybrid&w=740&q=80" alt="Project 2">
-        </a>
+<!--projects portion-->
+<section id="projects">
+    <h2>My Projects</h2>
 
-        <a href="https://github.com/rawahzain/project3" target="_blank">
-            <img src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?semt=ais_hybrid&w=740&q=80" alt="Project 3">
-        </a>
-    </section>
+    <a href="https://github.com/rawahzain/tickit" target="_blank">
+        <img src="https://media.istockphoto.com/id/874723624/vector/checklist-on-clip-board-icon-flat-graphic-design.jpg?s=612x612&w=0&k=20&c=tzQwMPU3-aAjkljDPd81SOm3U3ZPOWadA5W1WyWjys0=" alt="Project 1: To-do List App">
+    </a>
+
+    <a href="https://github.com/rawahzain/project2" target="_blank">
+        <img src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?semt=ais_hybrid&w=740&q=80" alt="Project 2">
+    </a>
+
+    <a href="https://github.com/rawahzain/project3" target="_blank">
+        <img src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?semt=ais_hybrid&w=740&q=80" alt="Project 3">
+    </a>
+</section>
+
 <!--contact portion-->
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <form>
-            <input type="text" placeholder="Your Name" required />
-            <input type="email" placeholder="Your Email Address" required />
-            <input type="text" placeholder="Subject" required />
-            <textarea placeholder="Message" rows="5" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
-    </section>
-<!--script to prompt user to enter their name prior to viewing site,
-    store name input and display on header-->
-    <script>
-        let userName = prompt("Hello! What is your name?");
+<section id="contact">
+    <h2>Contact Me</h2>
+    <form id="contactForm">
+        <input type="text" id="nameInput" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email Address" required />
+        <input type="text" placeholder="Subject" required />
+        <textarea placeholder="Message" rows="5" required></textarea>
+        <button id="submitBtn" type="submit">Submit</button>
+    </form>
+</section>
 
-        if (userName) {
-            document.getElementById("welcomeMessage").innerText =
-                "Welcome, " + userName + "!";
-        }
-    </script>
+<script>
+    /* WELCOME MESSAGE */
+    let userName = prompt("Hello! What is your name?");
+    if (userName) {
+        document.getElementById("welcomeMessage").innerText =
+            "Welcome, " + userName + "!";
+    }
+
+    /* FEATURED CONTENT CONDITIONAL LOGIC */
+    let projectCount = document.querySelectorAll("#projects img").length;
+
+    let uniDiv = document.getElementById("universityResources");
+    let personalDiv = document.getElementById("personalResources");
+
+    if (projectCount < 3) {
+        uniDiv.classList.remove("hidden");
+        personalDiv.classList.remove("hidden");
+    } else {
+        uniDiv.classList.add("hidden");
+        personalDiv.classList.remove("hidden");
+    }
+
+    /* SKILLS LOOP */
+    const skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub"];
+    const skillsList = document.getElementById("skillsList");
+
+    skills.forEach(skill => {
+        let li = document.createElement("li");
+        li.textContent = skill;
+        skillsList.appendChild(li);
+    });
+
+    /* DARK MODE */
+    document.getElementById("darkModeToggle").addEventListener("change", function () {
+        document.body.classList.toggle("dark-mode");
+    });
+
+    /* FORM SUBMIT INTERACTIVITY */
+    document.getElementById("contactForm").addEventListener("submit", function(event){
+        event.preventDefault();
+
+        let user = document.getElementById("nameInput").value;
+
+        alert("Thank you, " + user + ", your message has been sent!");
+    });
+</script>
+
 </body>
 </html>
