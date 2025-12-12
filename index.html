@@ -78,9 +78,10 @@
             border: none;
             border-radius: 6px;
             cursor: pointer;
+            position: relative;
         }
 
-        /* FEATURED CONTENT STYLING */
+        /* FEATURED CONTENT */
         .feature-box {
             padding: 15px;
             margin: 10px 0;
@@ -89,6 +90,46 @@
         }
         .hidden {
             display: none;
+        }
+
+        /* TOOLTIP */
+        #submitBtn:hover::after {
+            content: "Click to send your message!";
+            position: absolute;
+            top: -35px;
+            left: 0;
+            background: black;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        /* MODAL */
+        #modalOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #modalBox {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+
+        #modalBox button {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -99,6 +140,15 @@
     <label style="position:absolute; top:10px; right:10px; color:white;">
         <input type="checkbox" id="darkModeToggle"> Dark Mode
     </label>
+
+    <!-- WELCOME MODAL -->
+    <div id="modalOverlay">
+        <div id="modalBox">
+            <h3>🚧 Work In Progress</h3>
+            <p>This page is still being built — thanks for visiting!</p>
+            <button id="closeModal">Close</button>
+        </div>
+    </div>
 
     <header>
         <h1 id="welcomeMessage">Welcome!</h1>
@@ -171,12 +221,10 @@
 </section>
 
 <script>
-    /* WELCOME MESSAGE */
-    let userName = prompt("Hello! What is your name?");
-    if (userName) {
-        document.getElementById("welcomeMessage").innerText =
-            "Welcome, " + userName + "!";
-    }
+    /* Remvoving prompt that asks for name, changing to modal */
+    document.getElementById("closeModal").addEventListener("click", function () {
+        document.getElementById("modalOverlay").style.display = "none";
+    });
 
     /* FEATURED CONTENT CONDITIONAL LOGIC */
     let projectCount = document.querySelectorAll("#projects img").length;
@@ -211,7 +259,7 @@
     projectSection.style.borderRadius = "10px";
     projectSection.style.padding = "10px";
 
-    /* ADD DYNAMIC NOTIFICATION AFTER 2 SECONDS */
+    /* ADD DYNAMIC NOTIFICATION */
     setTimeout(() => {
         const note = document.createElement("div");
         note.textContent = "NEW UPDATE: Check out my newest project below!";
@@ -222,17 +270,31 @@
         document.body.prepend(note);
     }, 2000);
 
-    /* ADD A NEW DYNAMIC PARAGRAPH TO PROJECTS */
+    /* ADD NEW PROJECT PARAGRAPH */
     const newProject = document.createElement("p");
-    newProject.innerHTML = "<strong>🔧 Recent Project:</strong> I’m currently building a UI prototype!";
+    newProject.innerHTML = "<strong>Recent Project:</strong> I’m currently building a UI prototype!";
     document.querySelector("#projects").appendChild(newProject);
 
-    /* DARK MODE */
-    document.getElementById("darkModeToggle").addEventListener("change", function () {
-        document.body.classList.toggle("dark-mode");
+    /* DARK MODE WITH LOCALSTORAGE */
+    const toggle = document.getElementById("darkModeToggle");
+
+    // load saved preference
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+        toggle.checked = true;
+    }
+
+    toggle.addEventListener("change", function () {
+        if (toggle.checked) {
+            document.body.classList.add("dark-mode");
+            localStorage.setItem("darkMode", "enabled");
+        } else {
+            document.body.classList.remove("dark-mode");
+            localStorage.setItem("darkMode", "disabled");
+        }
     });
 
-    /* FORM SUBMISSION WITH LOADING + DELAYED CONFIRMATION */
+    /* FORM SUBMISSION WITH DELAY */
     document.getElementById("contactForm").addEventListener("submit", function(event){
         event.preventDefault();
 
