@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Portfolio</title>
 
-<!--styling-->
+    <!-- Styling -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -160,9 +160,9 @@
         <a href="#contact">Contact</a>
     </nav>
 
-<!--about portion-->
+    <!-- ABOUT SECTION -->
     <section id="about">
-        <h2>About Me</h2>
+        <h2>About Me (Updated)</h2>
         <p>
             Hello, my name is Rawah! I am an aspiring interface designer, currently studying software development.
             I hope to grow my skills in user experience and interface design.
@@ -172,142 +172,161 @@
         <ul id="skillsList"></ul>
     </section>
 
-<!-- FEATURED CONTENT SECTION -->
-<section id="featured">
-    <h2>Featured Content</h2>
+    <!-- FEATURED CONTENT -->
+    <section id="featured">
+        <h2>Featured Content</h2>
 
-    <div id="universityResources" class="feature-box">
-        <h3>University Resources</h3>
-        <a href="https://www.ecpi.edu" target="_blank">ECPI Program Home Page</a>
-    </div>
+        <div id="universityResources" class="feature-box">
+            <h3>University Resources</h3>
+            <a href="https://www.ecpi.edu" target="_blank">ECPI Program Home Page</a>
+        </div>
 
-    <div id="personalResources" class="feature-box">
-        <h3>Personal Projects</h3>
-        <a href="https://github.com/rawahzain/tickit" target="_blank">
-            <img src="https://media.istockphoto.com/id/874723624/vector/checklist-on-clip-board-icon-flat-graphic-design.jpg?s=612x612&w=0&k=20&c=tzQwMPU3-aAjkljDPd81SOm3U3ZPOWadA5W1WyWjys0=">
-        </a>
-    </div>
-</section>
+        <div id="personalResources" class="feature-box">
+            <h3>Personal Projects</h3>
+            <a href="https://github.com/rawahzain/tickit" target="_blank">
+                <img src="https://media.istockphoto.com/id/874723624/vector/checklist-on-clip-board-icon-flat-graphic-design.jpg?s=612x612&w=0&k=20&c=tzQwMPU3-aAjkljDPd81SOm3U3ZPOWadA5W1WyWjys0=">
+            </a>
+        </div>
+    </section>
 
-<!--projects portion-->
-<section id="projects">
-    <h2>My Projects</h2>
+    <!-- PROJECTS SECTION -->
+    <section id="projects">
+        <h2>My Projects</h2>
+        <!-- Projects will be dynamically rendered here -->
+    </section>
 
-    <a href="https://github.com/rawahzain/tickit" target="_blank">
-        <img src="https://media.istockphoto.com/id/874723624/vector/checklist-on-clip-board-icon-flat-graphic-design.jpg?s=612x612&w=0&k=20&c=tzQwMPU3-aAjkljDPd81SOm3U3ZPOWadA5W1WyWjys0=" alt="Project 1: To-do List App">
-    </a>
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form id="contactForm">
+            <input type="text" id="nameInput" placeholder="Your Name" required />
+            <input type="email" placeholder="Your Email Address" required />
+            <input type="text" placeholder="Subject" required />
+            <textarea placeholder="Message" rows="5" required></textarea>
+            <button id="submitBtn" type="submit">Submit</button>
+        </form>
 
-    <a href="https://github.com/rawahzain/project2" target="_blank">
-        <img src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?semt=ais_hybrid&w=740&q=80" alt="Project 2">
-    </a>
+        <p id="formStatus" style="font-weight:bold; margin-top:10px;"></p>
+    </section>
 
-    <a href="https://github.com/rawahzain/project3" target="_blank">
-        <img src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?semt=ais_hybrid&w=740&q=80" alt="Project 3">
-    </a>
-</section>
+    <script>
+        /* ---------------- MODAL ---------------- */
+        document.getElementById("closeModal").addEventListener("click", function () {
+            document.getElementById("modalOverlay").style.display = "none";
+        });
 
-<!--contact portion-->
-<section id="contact">
-    <h2>Contact Me</h2>
-    <form id="contactForm">
-        <input type="text" id="nameInput" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email Address" required />
-        <input type="text" placeholder="Subject" required />
-        <textarea placeholder="Message" rows="5" required></textarea>
-        <button id="submitBtn" type="submit">Submit</button>
-    </form>
+        /* ---------------- FEATURED CONTENT LOGIC ---------------- */
+        let projectCount = document.querySelectorAll("#projects img").length;
 
-    <p id="formStatus" style="font-weight:bold; margin-top:10px;"></p>
-</section>
+        let uniDiv = document.getElementById("universityResources");
+        let personalDiv = document.getElementById("personalResources");
 
-<script>
-    /* Remvoving prompt that asks for name, changing to modal */
-    document.getElementById("closeModal").addEventListener("click", function () {
-        document.getElementById("modalOverlay").style.display = "none";
-    });
-
-    /* FEATURED CONTENT CONDITIONAL LOGIC */
-    let projectCount = document.querySelectorAll("#projects img").length;
-
-    let uniDiv = document.getElementById("universityResources");
-    let personalDiv = document.getElementById("personalResources");
-
-    if (projectCount < 3) {
-        uniDiv.classList.remove("hidden");
-        personalDiv.classList.remove("hidden");
-    } else {
-        uniDiv.classList.add("hidden");
-        personalDiv.classList.remove("hidden");
-    }
-
-    /* SKILLS LOOP */
-    const skills = ["HTML", "CSS", "JavaScript", "Figma", "GitHub"];
-    const skillsList = document.getElementById("skillsList");
-
-    skills.forEach(skill => {
-        let li = document.createElement("li");
-        li.textContent = skill;
-        skillsList.appendChild(li);
-    });
-
-    /* MODIFY EXISTING ELEMENTS */
-    const aboutHeader = document.querySelector("#about h2");
-    aboutHeader.textContent = "About Me (Updated)";
-
-    const projectSection = document.getElementById("projects");
-    projectSection.style.border = "3px solid #888";
-    projectSection.style.borderRadius = "10px";
-    projectSection.style.padding = "10px";
-
-    /* ADD DYNAMIC NOTIFICATION */
-    setTimeout(() => {
-        const note = document.createElement("div");
-        note.textContent = "NEW UPDATE: Check out my newest project below!";
-        note.style.background = "#ffd54f";
-        note.style.padding = "12px";
-        note.style.textAlign = "center";
-        note.style.fontWeight = "bold";
-        document.body.prepend(note);
-    }, 2000);
-
-    /* ADD NEW PROJECT PARAGRAPH */
-    const newProject = document.createElement("p");
-    newProject.innerHTML = "<strong>Recent Project:</strong> I’m currently building a UI prototype!";
-    document.querySelector("#projects").appendChild(newProject);
-
-    /* DARK MODE WITH LOCALSTORAGE */
-    const toggle = document.getElementById("darkModeToggle");
-
-    // load saved preference
-    if (localStorage.getItem("darkMode") === "enabled") {
-        document.body.classList.add("dark-mode");
-        toggle.checked = true;
-    }
-
-    toggle.addEventListener("change", function () {
-        if (toggle.checked) {
-            document.body.classList.add("dark-mode");
-            localStorage.setItem("darkMode", "enabled");
+        if (projectCount < 3) {
+            uniDiv.classList.remove("hidden");
+            personalDiv.classList.remove("hidden");
         } else {
-            document.body.classList.remove("dark-mode");
-            localStorage.setItem("darkMode", "disabled");
+            uniDiv.classList.add("hidden");
+            personalDiv.classList.remove("hidden");
         }
-    });
 
-    /* FORM SUBMISSION WITH DELAY */
-    document.getElementById("contactForm").addEventListener("submit", function(event){
-        event.preventDefault();
+        /* ---------------- SKILLS LIST ---------------- */
+        const skills = ["HTML", "CSS", "JavaScript", "Figma", "GitHub"];
+        const skillsList = document.getElementById("skillsList");
 
-        const status = document.getElementById("formStatus");
-        status.style.color = "blue";
-        status.textContent = "Sending message...";
+        skills.forEach(skill => {
+            let li = document.createElement("li");
+            li.textContent = skill;
+            skillsList.appendChild(li);
+        });
 
+        /* ---------------- DYNAMIC PROJECTS ---------------- */
+        const projects = [
+            {
+                title: "To-do List App",
+                summary: "A simple to-do list app to manage daily tasks efficiently.",
+                image: "https://media.istockphoto.com/id/874723624/vector/checklist-on-clip-board-icon-flat-graphic-design.jpg?s=612x612&w=0&k=20&c=tzQwMPU3-aAjkljDPd81SOm3U3ZPOWadA5W1WyWjys0=",
+                repo: "https://github.com/rawahzain/tickit"
+            },
+            {
+                title: "Photo Gallery",
+                summary: "A responsive photo gallery app that showcases images in a grid layout.",
+                image: "https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?semt=ais_hybrid&w=740&q=80",
+                repo: "https://github.com/rawahzain/project2"
+            },
+            {
+                title: "UI Prototype",
+                summary: "A UI/UX prototype for a personal portfolio project using Figma designs.",
+                image: "https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?semt=ais_hybrid&w=740&q=80",
+                repo: "https://github.com/rawahzain/project3"
+            }
+        ];
+
+        // Store in sessionStorage if not exists
+        if (!sessionStorage.getItem("projects")) {
+            sessionStorage.setItem("projects", JSON.stringify(projects));
+        }
+
+        // Retrieve and parse
+        const storedProjects = JSON.parse(sessionStorage.getItem("projects"));
+
+        const projectSection = document.getElementById("projects");
+        projectSection.innerHTML = "<h2>My Projects</h2>"; // clear previous content
+
+        storedProjects.forEach(proj => {
+            const projDiv = document.createElement("div");
+            projDiv.classList.add("feature-box");
+
+            projDiv.innerHTML = `
+                <h3>${proj.title}</h3>
+                <p>${proj.summary}</p>
+                <a href="${proj.repo}" target="_blank">
+                    <img src="${proj.image}" alt="${proj.title}">
+                </a>
+            `;
+            projectSection.appendChild(projDiv);
+        });
+
+        /* ---------------- DYNAMIC NOTIFICATION ---------------- */
         setTimeout(() => {
-            status.style.color = "green";
-            status.textContent = "Message sent successfully!";
-        }, 2500);
-    });
-</script>
+            const note = document.createElement("div");
+            note.textContent = "NEW UPDATE: Check out my newest project below!";
+            note.style.background = "#ffd54f";
+            note.style.padding = "12px";
+            note.style.textAlign = "center";
+            note.style.fontWeight = "bold";
+            document.body.prepend(note);
+        }, 2000);
 
+        /* ---------------- DARK MODE ---------------- */
+        const toggle = document.getElementById("darkModeToggle");
+        if (localStorage.getItem("darkMode") === "enabled") {
+            document.body.classList.add("dark-mode");
+            toggle.checked = true;
+        }
+
+        toggle.addEventListener("change", function () {
+            if (toggle.checked) {
+                document.body.classList.add("dark-mode");
+                localStorage.setItem("darkMode", "enabled");
+            } else {
+                document.body.classList.remove("dark-mode");
+                localStorage.setItem("darkMode", "disabled");
+            }
+        });
+
+        /* ---------------- CONTACT FORM ---------------- */
+        document.getElementById("contactForm").addEventListener("submit", function(event){
+            event.preventDefault();
+
+            const status = document.getElementById("formStatus");
+            status.style.color = "blue";
+            status.textContent = "Sending message...";
+
+            setTimeout(() => {
+                status.style.color = "green";
+                status.textContent = "Message sent successfully!";
+            }, 2500);
+        });
+    </script>
 </body>
 </html>
